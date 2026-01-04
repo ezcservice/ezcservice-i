@@ -31,10 +31,6 @@ body{
     box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
 
-.popup p{
-    font-size:15px;
-}
-
 .popup-buttons{
     display:flex;
     gap:10px;
@@ -59,32 +55,37 @@ body{
 
 .section h3{
     margin-bottom:15px;
-    font-size:17px;
+}
+
+/* Back button */
+.back-btn{
+    background:#666;
+    margin-bottom:15px;
 }
 
 /* Payment buttons */
 .pay-btn{
     display:flex;
     align-items:center;
-    gap:12px;
+    gap:15px;
     width:100%;
-    padding:14px;
-    margin-bottom:10px;
+    padding:15px;
+    margin-bottom:12px;
     border:none;
-    border-radius:10px;
+    border-radius:12px;
     font-size:16px;
     color:#fff;
 }
 
 .pay-btn img{
-    width:35px;
-    height:35px;
+    width:45px;   /* logo size increased */
+    height:45px;
     background:#fff;
-    border-radius:6px;
-    padding:4px;
+    border-radius:8px;
+    padding:5px;
 }
 
-/* Bank colors */
+/* Online bank colors */
 .sampath{background:#b40000;}
 .boc{background:#0033a0;}
 .combank{background:#006a4e;}
@@ -92,7 +93,42 @@ body{
 .ndb{background:#ed1c24;}
 .ipay{background:#5a2d82;}
 
-.offline{background:#444;}
+/* Offline colors */
+.foodcity{background:#2e7d32;}
+.payngom{background:#ef6c00;}
+.commshop{background:#1565c0;}
+.dialog{background:#d32f2f;}
+.singer{background:#424242;}
+
+/* Loading overlay */
+.loading{
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    z-index:999;
+}
+
+.spinner{
+    width:50px;
+    height:50px;
+    border:6px solid #ddd;
+    border-top:6px solid #00e676;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+    margin-bottom:15px;
+}
+
+@keyframes spin{
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+}
 </style>
 </head>
 
@@ -100,7 +136,7 @@ body{
 
 <div class="container">
 
-<!-- Login Popup -->
+<!-- First Popup -->
 <div class="popup" id="loginPopup">
     <p>
         ඔබ පේමන්ට් එක කරන්නේ Online Transfer හරහාද?<br>
@@ -111,75 +147,73 @@ body{
     </p>
 
     <div class="popup-buttons">
-        <button onclick="showOnline()">
-            Online Transfer<br>ඔන්ලයින්
-        </button>
-        <button onclick="showOffline()">
-            Offline Payment<br>පිටතින්
-        </button>
+        <button onclick="showOnline()">Online Transfer<br>ඔන්ලයින්</button>
+        <button onclick="showOffline()">Offline Payment<br>පිටතින්</button>
     </div>
 </div>
 
-<!-- Online Section -->
+<!-- Online -->
 <div class="section" id="onlineSection">
-<h3>Online Transfer යටතේ ගෙවීම් කළ හැකි Bank</h3>
+<button class="pay-btn back-btn" onclick="goBack()">⬅ Back</button>
+<h3>Online Transfer Banks</h3>
 
-<button class="pay-btn sampath" onclick="sendWhatsApp('Sampath Vishwa')">
+<button class="pay-btn sampath" onclick="selectMethod('Sampath Vishwa')">
 <img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Sampath_Bank_logo.png">
 Sampath Vishwa
 </button>
 
-<button class="pay-btn boc" onclick="sendWhatsApp('BOC Flex')">
+<button class="pay-btn boc" onclick="selectMethod('BOC Flex')">
 <img src="https://upload.wikimedia.org/wikipedia/en/7/77/Bank_of_Ceylon_logo.png">
 BOC Flex
 </button>
 
-<button class="pay-btn combank" onclick="sendWhatsApp('Commercial Bank App')">
+<button class="pay-btn combank" onclick="selectMethod('Commercial Bank App')">
 <img src="https://upload.wikimedia.org/wikipedia/en/9/94/Commercial_Bank_Sri_Lanka_logo.png">
 Commercial Bank App
 </button>
 
-<button class="pay-btn payngo" onclick="sendWhatsApp('Pay and Go')">
+<button class="pay-btn payngo" onclick="selectMethod('Pay and Go')">
 <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png">
 Pay and Go
 </button>
 
-<button class="pay-btn ndb" onclick="sendWhatsApp('NDB App')">
+<button class="pay-btn ndb" onclick="selectMethod('NDB App')">
 <img src="https://upload.wikimedia.org/wikipedia/en/5/5f/National_Development_Bank_logo.png">
 NDB App
 </button>
 
-<button class="pay-btn ipay" onclick="sendWhatsApp('iPay App')">
+<button class="pay-btn ipay" onclick="selectMethod('iPay App')">
 <img src="https://cdn-icons-png.flaticon.com/512/825/825423.png">
 iPay App
 </button>
 </div>
 
-<!-- Offline Section -->
+<!-- Offline -->
 <div class="section" id="offlineSection">
+<button class="pay-btn back-btn" onclick="goBack()">⬅ Back</button>
 <h3>Offline Payment Methods</h3>
 
-<button class="pay-btn offline" onclick="sendWhatsApp('Food City')">
+<button class="pay-btn foodcity" onclick="selectMethod('Food City')">
 <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png">
 Food City
 </button>
 
-<button class="pay-btn offline" onclick="sendWhatsApp('Pay and Go Machine')">
+<button class="pay-btn payngom" onclick="selectMethod('Pay and Go Machine')">
 <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png">
 Pay and Go Machine
 </button>
 
-<button class="pay-btn offline" onclick="sendWhatsApp('Communication Shop')">
+<button class="pay-btn commshop" onclick="selectMethod('Communication Shop')">
 <img src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png">
 Communication Shop
 </button>
 
-<button class="pay-btn offline" onclick="sendWhatsApp('Dialog Arcade')">
+<button class="pay-btn dialog" onclick="selectMethod('Dialog Arcade')">
 <img src="https://upload.wikimedia.org/wikipedia/en/7/75/Dialog_Axiata_logo.png">
 Dialog Arcade
 </button>
 
-<button class="pay-btn offline" onclick="sendWhatsApp('Singer Outlet')">
+<button class="pay-btn singer" onclick="selectMethod('Singer Outlet')">
 <img src="https://upload.wikimedia.org/wikipedia/en/6/6e/Singer_Sri_Lanka_logo.png">
 Singer Outlet
 </button>
@@ -187,30 +221,58 @@ Singer Outlet
 
 </div>
 
+<!-- Loading Screen -->
+<div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>
+        විස්තර WhatsApp වෙත යවමින් පවතී...<br>
+        Sending details to WhatsApp...
+    </p>
+</div>
+
 <script>
+const phone = "94742089009";
+
+function hideAll(){
+    loginPopup.style.display="none";
+    onlineSection.style.display="none";
+    offlineSection.style.display="none";
+}
+
 function showOnline(){
-    document.getElementById("loginPopup").style.display="none";
-    document.getElementById("onlineSection").style.display="block";
+    hideAll();
+    onlineSection.style.display="block";
 }
 
 function showOffline(){
-    document.getElementById("loginPopup").style.display="none";
-    document.getElementById("offlineSection").style.display="block";
+    hideAll();
+    offlineSection.style.display="block";
 }
 
-function sendWhatsApp(method){
-    let phone = "94XXXXXXXXX"; // Your WhatsApp number
-    let message =
-`Payment Method Selected
+function goBack(){
+    hideAll();
+    loginPopup.style.display="block";
+}
 
+function selectMethod(method){
+    document.getElementById("loading").style.display="flex";
+
+    setTimeout(()=>{
+        let message =
+`Payment Method Selected
+-----------------------
 Method: ${method}
 
 ඔබ තෝරාගත් ගෙවීම් ක්‍රමය:
 ${method}`;
-    window.open(
-      "https://wa.me/"+phone+"?text="+encodeURIComponent(message),
-      "_blank"
-    );
+
+        window.open(
+            "https://wa.me/"+phone+"?text="+encodeURIComponent(message),
+            "_blank"
+        );
+
+        document.getElementById("loading").style.display="none";
+    }, 2500); // loading delay
 }
 </script>
 
