@@ -78,14 +78,14 @@ body{
 }
 
 .pay-btn img{
-    width:45px;   /* logo size increased */
+    width:45px;
     height:45px;
     background:#fff;
     border-radius:8px;
     padding:5px;
 }
 
-/* Online bank colors */
+/* Online colors */
 .sampath{background:#b40000;}
 .boc{background:#0033a0;}
 .combank{background:#006a4e;}
@@ -152,7 +152,7 @@ body{
     </div>
 </div>
 
-<!-- Online -->
+<!-- Online Section -->
 <div class="section" id="onlineSection">
 <button class="pay-btn back-btn" onclick="goBack()">⬅ Back</button>
 <h3>Online Transfer Banks</h3>
@@ -188,7 +188,7 @@ iPay App
 </button>
 </div>
 
-<!-- Offline -->
+<!-- Offline Section -->
 <div class="section" id="offlineSection">
 <button class="pay-btn back-btn" onclick="goBack()">⬅ Back</button>
 <h3>Offline Payment Methods</h3>
@@ -255,10 +255,11 @@ function goBack(){
 }
 
 function selectMethod(method){
+
+    // Show loading UI
     document.getElementById("loading").style.display="flex";
 
-    setTimeout(()=>{
-        let message =
+    let message =
 `Payment Method Selected
 -----------------------
 Method: ${method}
@@ -266,13 +267,15 @@ Method: ${method}
 ඔබ තෝරාගත් ගෙවීම් ක්‍රමය:
 ${method}`;
 
-        window.open(
-            "https://wa.me/"+phone+"?text="+encodeURIComponent(message),
-            "_blank"
-        );
+    let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
 
+    // IMPORTANT: open WhatsApp immediately (no popup block)
+    window.open(url, "_blank");
+
+    // Hide loading after short delay (UI only)
+    setTimeout(()=>{
         document.getElementById("loading").style.display="none";
-    }, 2500); // loading delay
+    }, 2000);
 }
 </script>
 
