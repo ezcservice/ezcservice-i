@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Payment Selection System</title>
+<title>Payment Selection</title>
 
 <style>
 *{
@@ -24,11 +24,11 @@ body{
 
 /* Popup */
 .popup{
-    background:#ffffff;
+    background:#fff;
     padding:20px;
-    border-radius:10px;
+    border-radius:12px;
     text-align:center;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
 
 .popup p{
@@ -43,10 +43,10 @@ body{
 
 .popup button{
     flex:1;
-    padding:12px;
+    padding:14px;
     border:none;
-    border-radius:8px;
-    font-size:16px;
+    border-radius:10px;
+    font-size:15px;
     color:#fff;
     background:#007bff;
 }
@@ -62,15 +62,26 @@ body{
     font-size:17px;
 }
 
-/* Buttons */
-button{
+/* Payment buttons */
+.pay-btn{
+    display:flex;
+    align-items:center;
+    gap:12px;
     width:100%;
     padding:14px;
     margin-bottom:10px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     font-size:16px;
     color:#fff;
+}
+
+.pay-btn img{
+    width:35px;
+    height:35px;
+    background:#fff;
+    border-radius:6px;
+    padding:4px;
 }
 
 /* Bank colors */
@@ -81,9 +92,7 @@ button{
 .ndb{background:#ed1c24;}
 .ipay{background:#5a2d82;}
 
-/* Offline buttons */
 .offline{background:#444;}
-
 </style>
 </head>
 
@@ -91,44 +100,90 @@ button{
 
 <div class="container">
 
-    <!-- Login Success Popup -->
-    <div class="popup" id="loginPopup">
-        <p>
-            ඔබ පේමන්ට් එක කරන්නේ Online Transfer හරහාද?<br>
-            නැතිනම් පිටතින්?<br><br>
-            <strong>
-                Are you making the payment via Online Transfer or Offline?
-            </strong>
-        </p>
+<!-- Login Popup -->
+<div class="popup" id="loginPopup">
+    <p>
+        ඔබ පේමන්ට් එක කරන්නේ Online Transfer හරහාද?<br>
+        නැතිනම් පිටතින්?<br><br>
+        <strong>
+        Are you making the payment via Online Transfer or Offline?
+        </strong>
+    </p>
 
-        <div class="popup-buttons">
-            <button onclick="showOnline()">Online Transfer</button>
-            <button onclick="showOffline()">Offline</button>
-        </div>
+    <div class="popup-buttons">
+        <button onclick="showOnline()">
+            Online Transfer<br>ඔන්ලයින්
+        </button>
+        <button onclick="showOffline()">
+            Offline Payment<br>පිටතින්
+        </button>
     </div>
+</div>
 
-    <!-- Online Payment Section -->
-    <div class="section" id="onlineSection">
-        <h3>Online Transfer යටතේ ගෙවීම් කළ හැකි Bank</h3>
+<!-- Online Section -->
+<div class="section" id="onlineSection">
+<h3>Online Transfer යටතේ ගෙවීම් කළ හැකි Bank</h3>
 
-        <button class="sampath" onclick="sendWhatsApp('Sampath Vishwa')">Sampath Vishwa</button>
-        <button class="boc" onclick="sendWhatsApp('BOC Flex')">BOC Flex</button>
-        <button class="combank" onclick="sendWhatsApp('Commercial Bank App')">Commercial Bank App</button>
-        <button class="payngo" onclick="sendWhatsApp('Pay and Go')">Pay and Go</button>
-        <button class="ndb" onclick="sendWhatsApp('NDB App')">NDB App</button>
-        <button class="ipay" onclick="sendWhatsApp('iPay App')">iPay App</button>
-    </div>
+<button class="pay-btn sampath" onclick="sendWhatsApp('Sampath Vishwa')">
+<img src="https://upload.wikimedia.org/wikipedia/en/3/3b/Sampath_Bank_logo.png">
+Sampath Vishwa
+</button>
 
-    <!-- Offline Payment Section -->
-    <div class="section" id="offlineSection">
-        <h3>Offline Payment Methods</h3>
+<button class="pay-btn boc" onclick="sendWhatsApp('BOC Flex')">
+<img src="https://upload.wikimedia.org/wikipedia/en/7/77/Bank_of_Ceylon_logo.png">
+BOC Flex
+</button>
 
-        <button class="offline" onclick="sendWhatsApp('Food City')">Food City</button>
-        <button class="offline" onclick="sendWhatsApp('Pay and Go Machine')">Pay and Go Machine</button>
-        <button class="offline" onclick="sendWhatsApp('Communication Shop')">Communication Shop</button>
-        <button class="offline" onclick="sendWhatsApp('Dialog Arcade')">Dialog Arcade</button>
-        <button class="offline" onclick="sendWhatsApp('Singer Outlet')">Singer Outlet</button>
-    </div>
+<button class="pay-btn combank" onclick="sendWhatsApp('Commercial Bank App')">
+<img src="https://upload.wikimedia.org/wikipedia/en/9/94/Commercial_Bank_Sri_Lanka_logo.png">
+Commercial Bank App
+</button>
+
+<button class="pay-btn payngo" onclick="sendWhatsApp('Pay and Go')">
+<img src="https://cdn-icons-png.flaticon.com/512/825/825454.png">
+Pay and Go
+</button>
+
+<button class="pay-btn ndb" onclick="sendWhatsApp('NDB App')">
+<img src="https://upload.wikimedia.org/wikipedia/en/5/5f/National_Development_Bank_logo.png">
+NDB App
+</button>
+
+<button class="pay-btn ipay" onclick="sendWhatsApp('iPay App')">
+<img src="https://cdn-icons-png.flaticon.com/512/825/825423.png">
+iPay App
+</button>
+</div>
+
+<!-- Offline Section -->
+<div class="section" id="offlineSection">
+<h3>Offline Payment Methods</h3>
+
+<button class="pay-btn offline" onclick="sendWhatsApp('Food City')">
+<img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png">
+Food City
+</button>
+
+<button class="pay-btn offline" onclick="sendWhatsApp('Pay and Go Machine')">
+<img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png">
+Pay and Go Machine
+</button>
+
+<button class="pay-btn offline" onclick="sendWhatsApp('Communication Shop')">
+<img src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png">
+Communication Shop
+</button>
+
+<button class="pay-btn offline" onclick="sendWhatsApp('Dialog Arcade')">
+<img src="https://upload.wikimedia.org/wikipedia/en/7/75/Dialog_Axiata_logo.png">
+Dialog Arcade
+</button>
+
+<button class="pay-btn offline" onclick="sendWhatsApp('Singer Outlet')">
+<img src="https://upload.wikimedia.org/wikipedia/en/6/6e/Singer_Sri_Lanka_logo.png">
+Singer Outlet
+</button>
+</div>
 
 </div>
 
@@ -144,16 +199,18 @@ function showOffline(){
 }
 
 function sendWhatsApp(method){
-    let phone = "94XXXXXXXXX"; // WhatsApp number
-    let message = 
+    let phone = "94XXXXXXXXX"; // Your WhatsApp number
+    let message =
 `Payment Method Selected
---------------------------------
+
 Method: ${method}
 
-ඔබ තෝරාගත් ගෙවීම් ක්‍රමය: ${method}`;
-    
-    let url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
-    window.open(url,"_blank");
+ඔබ තෝරාගත් ගෙවීම් ක්‍රමය:
+${method}`;
+    window.open(
+      "https://wa.me/"+phone+"?text="+encodeURIComponent(message),
+      "_blank"
+    );
 }
 </script>
 
